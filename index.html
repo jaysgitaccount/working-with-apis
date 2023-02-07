@@ -20,31 +20,45 @@
     </style>
 </head>
 <body>
-    <form action="">
-        <label for="giphy-search">Search GIPHY</label>
-        <input id="giphy-search" name="giphy-search" type="text">
-        <button type="submit">New jiff</button>
+    <form>
+        <label for="search">Search GIPHY: </label>
+        <input id="search" name="search" type="text" required="true" placeholder="winnie the pooh">
+        <input type="submit"></button>
     </form>
     
-    <div><img src="#" /></div>
+    <div>
+        <p  id="search-result">Search term: </p>
+        <img src="#" />
+    </div>
     
 <script>
+    
+    const form = document.querySelector('form')
     const searchbar = document.querySelector('input')
-    const button = document.querySelector('button');
+    // const button = document.querySelector('button');
     const image = document.querySelector('img');
 
     showRandomGif();
 
-    button.addEventListener('click', (event) => {
-        // Stop page from refreshing
-        event.preventDefault();
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        console.log('submit')
+
+        const formData = new FormData(form);
+        let value = formData.get('search');
+
+        console.log(value)
+        // Submit search
+        getGif(value);
+
+        // Show user what they typed
+        setSearchResult(value);
     })
 
-    function getGif(searchTerm) {
+    function getGif(search) {
         const options = {
             mode: 'cors'
         }
-        let search = 'winnie the pooh'; // temporary
         const key = 'PPQt7c04KlbXOZPuMZoGDQ7RnWJp63UE';
         const url = `https://api.giphy.com/v1/gifs/translate?api_key=${key}&s=${search}`
 
@@ -60,7 +74,13 @@
 
     function showRandomGif() {
         // On page load, have a gif ready to go already
-        getGif();
+        getGif('winnie the pooh');
+    }
+
+    function setSearchResult(value) {
+        const searchResult = document.querySelector('#search-result')
+
+        searchResult.textContent = value;
     }
 </script>
 
