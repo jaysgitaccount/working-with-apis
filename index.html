@@ -5,14 +5,40 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Learning APIs</title>
+    <style>
+        label {
+            display: inline-block;
+        }
+
+        button {
+            display: block;
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+    </style>
 </head>
 <body>
-    <button type="button" onclick="getGif()">New jiff</button>
-    <img src="#" />
+    <form action="">
+        <label for="giphy-search">Search GIPHY</label>
+        <input id="giphy-search" name="giphy-search" type="text">
+        <button type="submit">New jiff</button>
+    </form>
+    
+    <div><img src="#" /></div>
     
 <script>
+    const searchbar = document.querySelector('input')
     const button = document.querySelector('button');
     const image = document.querySelector('img');
+
+    showRandomGif();
+
+    button.addEventListener('click', (event) => {
+        // Stop page from refreshing
+        event.preventDefault();
+    })
 
     function getGif(searchTerm) {
         const options = {
@@ -36,8 +62,6 @@
         // On page load, have a gif ready to go already
         getGif();
     }
-
-    showRandomGif();
 </script>
 
 </body>
