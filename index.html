@@ -45,22 +45,28 @@
 
         // Submit search
         getGif(value);
-
-        // Show user what they typed
-        setSearchResult(value);
     })
 
-    function getGif(search) {
+    async function getGif(search) {
         const options = {
             mode: 'cors'
         }
         const key = 'PPQt7c04KlbXOZPuMZoGDQ7RnWJp63UE';
         const url = `https://api.giphy.com/v1/gifs/translate?api_key=${key}&s=${search}`
 
-        fetch(url, options)
-            .then(res => res.json())
-            .then(res => displayGif(res.data.images.original.url))
-            .catch(error => console.log(error))
+        try {
+            const response = await fetch(url, options);
+        
+            const result = await response.json();
+            
+            displayGif(result.data.images.original.url)
+
+            // Show user what they typed
+            setSearchResult(`Previous entry: ${search}`);
+        } catch (error) {
+            console.log(error);
+            setSearchResult(`There was an error! ${error}`);
+        }
     }
 
     function displayGif(url) {
@@ -74,7 +80,7 @@
 
     function setSearchResult(value) {
         const searchResult = document.querySelector('#search-result')
-        searchResult.textContent = `Your previous entry: "${value}".`;
+        searchResult.textContent = value;
     }
 </script>
 
