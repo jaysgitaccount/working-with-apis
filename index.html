@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learning APIs</title>
+</head>
+<body>
+    <button type="button">New jiff</button>
+    <img src="#" />
+    
+<script>
+    const options = {
+        mode: 'cors'
+    }
+    const button = document.querySelector('button');
+    const image = document.querySelector('img');
+
+    let key = 'PPQt7c04KlbXOZPuMZoGDQ7RnWJp63UE';
+    let search = '';
+    let url = `api.giphy.com/v1/gifs/translate?api_key=${key}&s=${search}`
+
+    fetch(url, options)
+        .then(res => res.json())
+        .then(res => image.src = res.data.images.original.url)
+        .catch(error => console.log(error))
+
+</script>
+
+</body>
+</html>
