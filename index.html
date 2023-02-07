@@ -6,6 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Learning APIs</title>
     <style>
+        body {
+            font-family: sans-serif;
+        }
+
         label {
             display: inline-block;
         }
@@ -13,41 +17,32 @@
         button {
             display: block;
         }
-
-        form {
-            margin-bottom: 20px;
-        }
     </style>
 </head>
 <body>
     <form>
-        <label for="search">Search GIPHY: </label>
+        <label for="search">Type words and GIPHY will show you something: </label>
         <input id="search" name="search" type="text" required="true" placeholder="winnie the pooh">
         <input type="submit"></button>
     </form>
     
     <div>
-        <p  id="search-result">Search term: </p>
+        <p id="search-result">Your previous entry will appear here.</p>
         <img src="#" />
     </div>
     
 <script>
-    
     const form = document.querySelector('form')
-    const searchbar = document.querySelector('input')
-    // const button = document.querySelector('button');
     const image = document.querySelector('img');
 
     showRandomGif();
 
     form.addEventListener('submit', (e) => {
         e.preventDefault();
-        console.log('submit')
 
         const formData = new FormData(form);
         let value = formData.get('search');
 
-        console.log(value)
         // Submit search
         getGif(value);
 
@@ -79,8 +74,7 @@
 
     function setSearchResult(value) {
         const searchResult = document.querySelector('#search-result')
-
-        searchResult.textContent = value;
+        searchResult.textContent = `Your previous entry: "${value}".`;
     }
 </script>
 
