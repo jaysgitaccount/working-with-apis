@@ -7,25 +7,37 @@
     <title>Learning APIs</title>
 </head>
 <body>
-    <button type="button">New jiff</button>
+    <button type="button" onclick="getGif()">New jiff</button>
     <img src="#" />
     
 <script>
-    const options = {
-        mode: 'cors'
-    }
     const button = document.querySelector('button');
     const image = document.querySelector('img');
 
-    let key = 'PPQt7c04KlbXOZPuMZoGDQ7RnWJp63UE';
-    let search = '';
-    let url = `api.giphy.com/v1/gifs/translate?api_key=${key}&s=${search}`
+    function getGif(searchTerm) {
+        const options = {
+            mode: 'cors'
+        }
+        let search = 'winnie the pooh'; // temporary
+        const key = 'PPQt7c04KlbXOZPuMZoGDQ7RnWJp63UE';
+        const url = `https://api.giphy.com/v1/gifs/translate?api_key=${key}&s=${search}`
 
-    fetch(url, options)
-        .then(res => res.json())
-        .then(res => image.src = res.data.images.original.url)
-        .catch(error => console.log(error))
+        fetch(url, options)
+            .then(res => res.json())
+            .then(res => displayGif(res.data.images.original.url))
+            .catch(error => console.log(error))
+    }
 
+    function displayGif(url) {
+        image.src = url;
+    }
+
+    function showRandomGif() {
+        // On page load, have a gif ready to go already
+        getGif();
+    }
+
+    showRandomGif();
 </script>
 
 </body>
